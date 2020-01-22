@@ -12,5 +12,9 @@ namespace CSI {
             this.Y = y;
         }
 
-   } 
+        public override string ToString() {
+            return X.ToString().Replace(",",".") + ";" + Y.ToString().Replace(",",".");
+        }
+
+    } 
 }

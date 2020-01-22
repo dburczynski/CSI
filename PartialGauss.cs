@@ -7,31 +7,30 @@ namespace CSI {
         private Vector vector;
 
         public PartialGauss(Matrix matrix, Vector vector) {
-            if(matrix.Size != vector.Size) {
+            if(matrix.getSize() != vector.getSize()) {
                 throw new ArgumentException("Wrong sizes for partialGauss");
             }
 
-            this.matrix = matrix;
-            this.vector = vector;
+            this.matrix = matrix.Copy();
+            this.vector = vector.Copy();
         }
 
         public Vector Calculate() {
 
-            for(int i = 0; i < matrix.Size; i++) {
+            for(int i = 0; i < matrix.getSize(); i++) {
 
                 Partial(i,i);
                 ////
 
-                for(int j = i+1; j < matrix.Size; j++) {
+                for(int j = i+1; j < matrix.getSize(); j++) {
                     
                     double multi = matrix.Get(j,i) / matrix.Get(i,i);
-                    
-                    for(int k = i; k < matrix.Size; k++) {
+
+                    for(int k = i; k < matrix.getSize(); k++) {
 
                          matrix.Set(j,k, matrix.Get(j,k) - matrix.Get(i,k)*multi);   
                     }
-                    vector.Set(j, vector.Get(j) - vector.Get(i)*multi);
-                }
+                    vector.Set(j, vector.Get(j) - vector.Get(i)*multi);                }
             }
 
             return FinalVector();
@@ -48,7 +47,7 @@ namespace CSI {
             maxValue = Math.Abs(maxValue);
             int max = i;
 
-            for(int k = i + 1; k < matrix.Size; k++) {
+            for(int k = i + 1; k < matrix.getSize(); k++) {
                 double temp = matrix.Get(k,j);
                 temp = Math.Abs(temp);
                 if(temp > maxValue) {
@@ -64,8 +63,8 @@ namespace CSI {
             double multi2;
             double value;
             
-            for(int i = matrix.Size-1; i >= 0; i--) {
-                for(int j = i + 1; j < matrix.Size; j++) {
+            for(int i = matrix.getSize()-1; i >= 0; i--) {
+                for(int j = i + 1; j < matrix.getSize(); j++) {
                     multi = matrix.Get(i,j);
                     value = vector.Get(j);
                     vector.Set(i, vector.Get(i) - multi*value);

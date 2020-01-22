@@ -4,15 +4,23 @@ using System.Collections.Generic;
 namespace CSI {
     public class Vector {
         
-        private List<Double> vector;
+        private double[] vector;
         private int size;
 
         public Vector(int size) {
             this.size = size;
-            vector = new List<double>(size);
+            vector = new double[size];
+            for(int i = 0; i < size; i++) {
+                vector[i] = 0;
+            }
         }
 
-        public int Size { get; set; }
+        public int getSize() {
+            return this.size;
+        }
+        public void setSize(int size) {
+            this.size = size;
+        }
         public double Get(int x) {
             return vector[x];
         }
@@ -33,7 +41,7 @@ namespace CSI {
         }
 
         public static Vector operator -(Vector vector) {
-            for(int i = 0; i < vector.Size; i++) {
+            for(int i = 0; i < vector.getSize(); i++) {
                 vector.Set(i, -vector.Get(i));
             }
             return vector;
@@ -41,12 +49,12 @@ namespace CSI {
 
         public static Vector operator +(Vector x, Vector y) {
 
-            if(x.Size !=  y.Size) {
+            if(x.getSize() !=  y.getSize()) {
                 throw new System.ArgumentException("Cant add these vectors!");
             }
-            Vector returnVector = new Vector(x.Size);
+            Vector returnVector = new Vector(x.getSize());
 
-            for(int i = 0; i < x.Size; i++) {
+            for(int i = 0; i < x.getSize(); i++) {
                 returnVector.Set(i, x.Get(i) + y.Get(i));;
             }
             return returnVector;
@@ -54,12 +62,12 @@ namespace CSI {
 
         public static Vector operator -(Vector x, Vector y) {
 
-            if(x.Size !=  y.Size) {
+            if(x.getSize() !=  y.getSize()) {
                 throw new System.ArgumentException("Cant add these vectors!");
             }
-            Vector returnVector = new Vector(x.Size);
+            Vector returnVector = new Vector(x.getSize());
 
-            for(int i = 0; i < x.Size; i++) {
+            for(int i = 0; i < x.getSize(); i++) {
                 returnVector.Set(i, x.Get(i) - y.Get(i));
             }
             return returnVector;
@@ -67,15 +75,15 @@ namespace CSI {
 
         public double Norm() {
             double sum = 0;
-            for(int i = 0; i < Size; i++) {
+            for(int i = 0; i < this.size; i++) {
                 sum += Math.Pow(vector[i], 2);
             }
             return Math.Sqrt(sum);
         }
 
         public Vector Copy() {
-            Vector returnVector = new Vector(Size);
-            for(int i = 0; i < Size; i++) {
+            Vector returnVector = new Vector(this.size);
+            for(int i = 0; i < this.size; i++) {
                 returnVector.Set(i,vector[i]);
             }
             return returnVector;

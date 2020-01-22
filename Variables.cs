@@ -18,7 +18,7 @@ namespace CSI {
             return H(i+1,pointList)/(H(i,pointList) + H(i+1,pointList)); 
         }
 
-        public static double M(int i, List<Point> pointList) {
+        public static double Mi(int i, List<Point> pointList) {
             return H(i,pointList) / (H(i,pointList) + H(i+1,pointList));
         }
 
